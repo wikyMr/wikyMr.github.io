@@ -1,0 +1,766 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java_data_struct," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="如题，这篇博客就是用java实现栈和队列的两种方式：数组以及链表，总的来说，我比较的喜欢链表，因为在队列里面，pop一个元素时，不需要像数组那样考虑去重新整合空间，orz，我是偷懒了，没有把数组的空间释放掉(数组实现队列时)，当然，把数组内容赋值为null之后，java虚拟机也会回收空间的了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java数据结构之栈和队列的数组以及链表实现">
+<meta property="og:url" content="https://wikymr.github.io/2017/structure01/index.html">
+<meta property="og:site_name" content="Wiky's Blog">
+<meta property="og:description" content="如题，这篇博客就是用java实现栈和队列的两种方式：数组以及链表，总的来说，我比较的喜欢链表，因为在队列里面，pop一个元素时，不需要像数组那样考虑去重新整合空间，orz，我是偷懒了，没有把数组的空间释放掉(数组实现队列时)，当然，把数组内容赋值为null之后，java虚拟机也会回收空间的了。">
+<meta property="og:updated_time" content="2017-05-29T12:18:20.042Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java数据结构之栈和队列的数组以及链表实现">
+<meta name="twitter:description" content="如题，这篇博客就是用java实现栈和队列的两种方式：数组以及链表，总的来说，我比较的喜欢链表，因为在队列里面，pop一个元素时，不需要像数组那样考虑去重新整合空间，orz，我是偷懒了，没有把数组的空间释放掉(数组实现队列时)，当然，把数组内容赋值为null之后，java虚拟机也会回收空间的了。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'RI3NF6GUI0',
+      apiKey: '3d33fa60ba30d3b17f37220bb1a36749',
+      indexName: 'blogIndex',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wikymr.github.io/2017/structure01/"/>
+
+
+
+
+
+  <title> java数据结构之栈和队列的数组以及链表实现 | Wiky's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e9505ac4e11d464329d615553a72b526";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiky's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Easy coding,easy life.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://wikymr.github.io/2017/structure01/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Wiky">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/./image/logo.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Wiky's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Wiky's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                java数据结构之栈和队列的数组以及链表实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-29T19:52:49+08:00">
+                2017-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+         
+             <span id="busuanzi_container_page_pv">
+                &nbsp; | &nbsp; 热度&nbsp; <span id="busuanzi_value_page_pv"></span>°C
+           </span>
+          
+
+        
+
+          
+            
+          
+
+          
+
+          
+          
+
+       <span class="post-time">
+     &nbsp; | &nbsp;
+           <span class="post-meta-item-icon">
+             <i class="fa fa-edit"></i>
+           </span>
+           <span class="post-meta-item-text">WordCount:</span>
+           <span class="post-count">字</span>
+           
+         </span>
+
+          
+
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>如题，这篇博客就是用java实现栈和队列的两种方式：数组以及链表，总的来说，我<br>比较的喜欢链表，因为在队列里面，pop一个元素时，不需要像数组那样考虑去重新整<br>合空间，orz，我是偷懒了，没有把数组的空间释放掉(数组实现队列时)，当然，把数组<br>内容赋值为null之后，java虚拟机也会回收空间的了。<br><a id="more"></a><br>代码及注解：<br><strong>数组来实现队列</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div></pre></td><td class="code"><pre><div class="line">package com.wiky.arr;</div><div class="line"></div><div class="line">import java.util.Iterator;</div><div class="line"></div><div class="line">class MyQueue&lt;Item&gt; implements Iterable&lt;Item&gt;&#123;//继承可迭代接口</div><div class="line">	private Item[] arr=(Item[])new Object[1];</div><div class="line">	private int N;</div><div class="line">	private int count;</div><div class="line">	public boolean isEmpty()&#123;</div><div class="line">		return N==0;</div><div class="line">	&#125;</div><div class="line">	public int size()&#123;</div><div class="line">		return N;</div><div class="line">	&#125;</div><div class="line">	public void newSize(int n)&#123;</div><div class="line">		int m=2*n;</div><div class="line">		@SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">		Item[] t=(Item[])new Object[m];</div><div class="line">		for(int i=0;i&lt;n;i++)&#123;</div><div class="line">			t[i]=arr[i];</div><div class="line">		&#125;</div><div class="line">		arr=(Item[])new Object[m];</div><div class="line">		arr=t;</div><div class="line">	&#125;</div><div class="line">	public void push(Item a)&#123;</div><div class="line">		if(arr.length==N)</div><div class="line">      		newSize(arr.length);</div><div class="line">      	arr[N]=a;</div><div class="line">      	N++;</div><div class="line">	&#125;</div><div class="line">	public Item pop()&#123;</div><div class="line">	    if(N!=count)&#123;</div><div class="line">		Item a=arr[count];</div><div class="line">		arr[count]=null;</div><div class="line">		count++;</div><div class="line"></div><div class="line">		return a;</div><div class="line">	    &#125;else&#123;</div><div class="line">	    	return null;</div><div class="line">	    &#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	public Iterator iterator()&#123;</div><div class="line">		return new Iterator()&#123;</div><div class="line"></div><div class="line">			int i=count;</div><div class="line">			@Override</div><div class="line">			public boolean hasNext() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				return i!=0;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			@Override</div><div class="line">			public Object next() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				Item t=arr[i];</div><div class="line">				i--;</div><div class="line">				return t;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class QueueTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">       MyQueue&lt;Integer&gt; arr=new MyQueue&lt;Integer&gt;();</div><div class="line">       arr.push(1);</div><div class="line">       arr.push(2);</div><div class="line">       arr.push(3);</div><div class="line">       </div><div class="line">       System.out.println(arr.pop());</div><div class="line">       System.out.println(arr.pop());</div><div class="line">       System.out.println(arr.pop());</div><div class="line">       System.out.println(arr.pop());</div><div class="line">       // //输出：1 2 3;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><hr><br><strong>数组方式实现栈</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">package com.wiky.arr;</div><div class="line"></div><div class="line">import java.util.Iterator;</div><div class="line"></div><div class="line">class MyStack&lt;Item&gt; implements Iterable&lt;Item&gt;&#123;//继承可迭代接口</div><div class="line">	private Item[] arr=(Item[])new Object[1];</div><div class="line">	private int N;</div><div class="line">	public boolean isEmpty()&#123;</div><div class="line">		return N==0;</div><div class="line">	&#125;</div><div class="line">	public int size()&#123;</div><div class="line">		return N;</div><div class="line">	&#125;</div><div class="line">	public void newSize(int n)&#123;</div><div class="line">		int m=2*n;</div><div class="line">		//不能创建一个泛型的数组，但是可以强制类型转换</div><div class="line">		@SuppressWarnings(&quot;unchecked&quot;)</div><div class="line">		Item[] t=(Item[])new Object[m];</div><div class="line">		for(int i=0;i&lt;n;i++)&#123;</div><div class="line">			t[i]=arr[i];</div><div class="line">		&#125;</div><div class="line">		arr=(Item[])new Object[m];</div><div class="line">		arr=t;</div><div class="line">	&#125;</div><div class="line">	public void push(Item a)&#123;</div><div class="line">      	/*if(arr.length==N)&#123;</div><div class="line">      		newSize(arr.length);</div><div class="line">      	&#125;else&#123;//这里加上个else就会导致扩展空间时不放入那个元素了</div><div class="line">      		arr[N]=a;</div><div class="line">      		N++;</div><div class="line">      	&#125;*/</div><div class="line">		if(arr.length==N)</div><div class="line">      		newSize(arr.length);</div><div class="line">      	arr[N]=a;</div><div class="line">      	N++;</div><div class="line">	&#125;</div><div class="line">	public Item pop()&#123;</div><div class="line">	    if(N!=0)&#123;</div><div class="line">		Item a=arr[--N];</div><div class="line">		arr[N]=null;</div><div class="line">		//先N--再创建新的空间</div><div class="line">		if(arr.length/4==N)</div><div class="line">			//newSize--arr.length/2而不是N/2</div><div class="line">			newSize(arr.length/2);</div><div class="line">		</div><div class="line">		return a;</div><div class="line">	    &#125;else&#123;</div><div class="line">	    	return null;</div><div class="line">	    &#125;</div><div class="line">		</div><div class="line">	&#125;</div><div class="line">	public Iterator iterator()&#123;</div><div class="line">		return new Iterator()&#123;</div><div class="line"></div><div class="line">			int i=N;</div><div class="line">			@Override</div><div class="line">			public boolean hasNext() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				return i!=0;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			@Override</div><div class="line">			public Object next() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				Item t=arr[i];</div><div class="line">				i--;</div><div class="line">				return t;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class StatckTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">       MyStack&lt;Integer&gt; arr=new MyStack&lt;Integer&gt;();</div><div class="line">       arr.push(1);</div><div class="line">       arr.push(2);</div><div class="line">       arr.push(3);</div><div class="line">       </div><div class="line">       System.out.println(arr.pop());</div><div class="line">       System.out.println(arr.pop());</div><div class="line">       System.out.println(arr.pop());</div><div class="line">       System.out.println(arr.pop());</div><div class="line">       //输出：3 2 1 null;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><hr><br><strong>链表实现栈</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">package com.wiky.list;</div><div class="line"></div><div class="line">import java.util.Iterator;</div><div class="line"></div><div class="line">class MyStack&lt;Item&gt;&#123;</div><div class="line">	private Node first;</div><div class="line">	private int N;</div><div class="line">	private class Node&#123;</div><div class="line">		Node next;</div><div class="line">		Item value;</div><div class="line">	&#125;</div><div class="line">	public boolean isEmpty()&#123;</div><div class="line">		return N==0;</div><div class="line">	&#125;</div><div class="line">	public int size()&#123;</div><div class="line">		return N;</div><div class="line">	&#125;</div><div class="line">	public void push(Item t)&#123;</div><div class="line">		Node oldfirst=first;</div><div class="line">		first=new Node();</div><div class="line">		first.value=t;</div><div class="line">		first.next=oldfirst;</div><div class="line">		N++;</div><div class="line">			</div><div class="line">	&#125;</div><div class="line">	public Item pop()&#123;</div><div class="line">		Node t=first;</div><div class="line">		first=first.next;</div><div class="line">		N--;</div><div class="line">		return t.value;</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	@SuppressWarnings(&#123; &quot;rawtypes&quot;, &quot;unchecked&quot; &#125;)</div><div class="line">	public Iterator&lt;Item&gt; iterator()&#123;</div><div class="line">		return new Iterator()&#123;</div><div class="line">           private Node current=first;</div><div class="line">			@Override</div><div class="line">			public boolean hasNext() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				return current!=null;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			@Override</div><div class="line">			public Item next() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				Item t=current.value;</div><div class="line">				current=current.next;</div><div class="line">				return t;</div><div class="line">			&#125;</div><div class="line">			</div><div class="line">		&#125;;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">public class StackTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">       MyStack&lt;Integer&gt; it=new MyStack&lt;Integer&gt;();</div><div class="line">       it.push(1);</div><div class="line">       it.push(2);</div><div class="line">       it.push(3);</div><div class="line">       it.push(4);</div><div class="line">       </div><div class="line">       System.out.println(it.pop());</div><div class="line">       System.out.println(it.pop());</div><div class="line">       System.out.println(it.pop());</div><div class="line">       System.out.println(it.size());</div><div class="line">       //输出同数组实现方式</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><hr><br><strong>链表方式实现队列</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line">package com.wiky.list;</div><div class="line"></div><div class="line">import java.util.Iterator;</div><div class="line"></div><div class="line">class MyQueue&lt;Item&gt;&#123;</div><div class="line">	private Node first;</div><div class="line">    private Node last;</div><div class="line">    private int N;</div><div class="line">    class Node&#123;</div><div class="line">    	Item value;</div><div class="line">    	Node next;</div><div class="line">    &#125;</div><div class="line">    public int size()&#123;</div><div class="line">    	return N;</div><div class="line">    &#125;</div><div class="line">    public boolean isEmpty()&#123;</div><div class="line">    	return N==0;</div><div class="line">    &#125;</div><div class="line">    public void push(Item item)&#123;</div><div class="line">    	/*//表头插入元素</div><div class="line">    	if(first==null&amp;&amp;last==null)</div><div class="line">    	&#123;	first.value=item;</div><div class="line">    	    last=first;</div><div class="line">    	    last.next=null;</div><div class="line">    	    first.next=null;</div><div class="line">    	    N++;</div><div class="line">    	&#125;else&#123;</div><div class="line">    		Node t=new Node();</div><div class="line">    		t.value=item;</div><div class="line">    		t.next=first.next;</div><div class="line">    		first.next=t;</div><div class="line">    		</div><div class="line">    	&#125;*/</div><div class="line">    	//在表尾插入元素</div><div class="line">    	Node oldLast=last;</div><div class="line">    	last=new Node();</div><div class="line">    	last.value=item;</div><div class="line">    	last.next=null;</div><div class="line">    	if(isEmpty()) first=last;</div><div class="line">    	else    oldLast.next=last;</div><div class="line">    	N++;</div><div class="line">    &#125;</div><div class="line">    //没有向前取址的指针就比较的麻烦，所以在表头删除元素会比较好</div><div class="line">    public Item pop()&#123;</div><div class="line">    	if(!isEmpty())&#123;</div><div class="line">       Item t=first.value;</div><div class="line">       first=first.next;</div><div class="line">       N--;</div><div class="line">       return t;</div><div class="line">     &#125;else&#123;</div><div class="line">    		return null;</div><div class="line">    	&#125;</div><div class="line">    &#125;</div><div class="line">    @SuppressWarnings(&#123; &quot;unchecked&quot;, &quot;rawtypes&quot; &#125;)</div><div class="line">	public Iterator&lt;Item&gt; iterator()&#123;</div><div class="line">    	return new Iterator()&#123;</div><div class="line">           private Node  current=first;</div><div class="line">			@Override</div><div class="line">			public boolean hasNext() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				return current!=null;</div><div class="line">			&#125;</div><div class="line"></div><div class="line">			@Override</div><div class="line">			public Item next() &#123;</div><div class="line">				// TODO Auto-generated method stub</div><div class="line">				Item t=current.value;</div><div class="line">				current=current.next;</div><div class="line">				return t;</div><div class="line">			&#125;</div><div class="line">    		</div><div class="line">    	&#125;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">public class QueueTest &#123;</div><div class="line"></div><div class="line">	public static void main(String[] args) &#123;</div><div class="line">		// TODO Auto-generated method stub</div><div class="line">      MyQueue&lt;Integer&gt; mq=new MyQueue&lt;Integer&gt;();</div><div class="line">      mq.push(1);</div><div class="line">      mq.push(2);</div><div class="line">      mq.push(3);</div><div class="line">      mq.push(4);</div><div class="line">      </div><div class="line">     System.out.println(mq.pop());</div><div class="line">     System.out.println(mq.pop());</div><div class="line">     System.out.println(mq.pop());</div><div class="line">     System.out.println(mq.pop());</div><div class="line">     System.out.println(mq.pop());</div><div class="line">      //输出同数组实现方式</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>总结：栈和队列这两个最基本的数据结构，有很多的共同点：<br>1.它们都是从一段插入然后从一端删除的数据结构，不会在数据结构的中间插入或者删除一个元素；<br>2.都可以用数组或者链表来实现，数组实现会比较的简介，链表实现则会有点繁琐，但是会很有趣；</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java-data-struct/" rel="tag"># java_data_struct</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/java/javasumerise/" rel="next" title="java基础知识篇之知识点细节">
+                <i class="fa fa-chevron-left"></i> java基础知识篇之知识点细节
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/java/reflect/" rel="prev" title="java反射学习">
+                java反射学习 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/./image/logo.png"
+               alt="Wiky" />
+          <p class="site-author-name" itemprop="name">Wiky</p>
+           
+              <p class="site-description motion-element" itemprop="description">屏上得来不觉浅，甚要绝知此事要躬行</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wikyMr" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5344898934/fans?topnav=1&wvr=6&mod=message&need_filter=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/haiweiyi/" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder ">Wiky</span>
+</div>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  
+
+</body>
+</html>

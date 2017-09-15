@@ -1,0 +1,772 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="public,protected,private可见性public：所有类都可见；protected：包内所有类以及其他包的子类；private：己类以及内部类可见；默认(不加修饰符)：包内可见；static:静态域：被static修饰的域，它属于类，不属于任何对象实例；static修饰的方法，属于类，可通过类来调用，同时返回类型也必须是static的类型(基本类型)；不能直接访问非静态对象和方法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java基础知识1">
+<meta property="og:url" content="https://wikymr.github.io/2017/java/javaBasic1/index.html">
+<meta property="og:site_name" content="Wiky's Blog">
+<meta property="og:description" content="public,protected,private可见性public：所有类都可见；protected：包内所有类以及其他包的子类；private：己类以及内部类可见；默认(不加修饰符)：包内可见；static:静态域：被static修饰的域，它属于类，不属于任何对象实例；static修饰的方法，属于类，可通过类来调用，同时返回类型也必须是static的类型(基本类型)；不能直接访问非静态对象和方法">
+<meta property="og:updated_time" content="2017-05-16T06:17:56.929Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java基础知识1">
+<meta name="twitter:description" content="public,protected,private可见性public：所有类都可见；protected：包内所有类以及其他包的子类；private：己类以及内部类可见；默认(不加修饰符)：包内可见；static:静态域：被static修饰的域，它属于类，不属于任何对象实例；static修饰的方法，属于类，可通过类来调用，同时返回类型也必须是static的类型(基本类型)；不能直接访问非静态对象和方法">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: 'RI3NF6GUI0',
+      apiKey: '3d33fa60ba30d3b17f37220bb1a36749',
+      indexName: 'blogIndex',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wikymr.github.io/2017/java/javaBasic1/"/>
+
+
+
+
+
+  <title> java基础知识1 | Wiky's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?e9505ac4e11d464329d615553a72b526";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wiky's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Easy coding,easy life.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            Über
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Kategorien
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://wikymr.github.io/2017/java/javaBasic1/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Wiky">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/./image/logo.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Wiky's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Wiky's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                java基础知识1
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-14T16:05:20+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+         
+             <span id="busuanzi_container_page_pv">
+                &nbsp; | &nbsp; 热度&nbsp; <span id="busuanzi_value_page_pv"></span>°C
+           </span>
+          
+
+        
+
+          
+            
+          
+
+          
+
+          
+          
+
+       <span class="post-time">
+     &nbsp; | &nbsp;
+           <span class="post-meta-item-icon">
+             <i class="fa fa-edit"></i>
+           </span>
+           <span class="post-meta-item-text">WordCount:</span>
+           <span class="post-count">字</span>
+           
+         </span>
+
+          
+
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>public,protected,private可见性</strong><br>public：所有类都可见；<br>protected：包内所有类以及其他包的子类；<br>private：己类以及内部类可见；<br>默认(不加修饰符)：包内可见；<br><strong>static:</strong><br>静态域：被static修饰的域，它属于类，不属于任何对象实例；<br>static修饰的方法，属于类，可通过类来调用，同时返回类型也必须是static的类型(基本类型)；<br>不能直接访问非静态对象和方法，不能使用super和this；<br>也就意味着只能操作静态域了。<br>static块：<br>在类加载时被创建，优先于非static块执行；</p>
+<p>总而言之，static修饰的东西会在类加载时准备好，脱离对象执行；</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">class Employee&#123;</div><div class="line">	private int id=1;</div><div class="line">	private static int staticid=1;</div><div class="line">	</div><div class="line">	public int getstaticid()&#123;</div><div class="line">		return staticid;</div><div class="line">	&#125;</div><div class="line">	public int getid()&#123;</div><div class="line">		return id;</div><div class="line">	&#125;</div><div class="line">	public  int  addid()&#123;</div><div class="line">		id++;</div><div class="line">		return id;</div><div class="line">	&#125;</div><div class="line">	public static  int  addstaticid()&#123;</div><div class="line">		//id++；//error</div><div class="line">		//this.name=&quot;&quot;;//编译不通过</div><div class="line">		staticid++;</div><div class="line">		return staticid;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class StaticTest &#123;</div><div class="line">    </div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		       //静态块会顺序执行</div><div class="line">		Employee e=new Employee();</div><div class="line">		System.out.println(e.getstaticid());//1</div><div class="line">		Employee e1=new Employee();</div><div class="line">		System.out.println(e1.getstaticid());//1</div><div class="line">				//通过类的静态方法也可以改变静态域</div><div class="line">		System.out.println(Employee.addstaticid());//2</div><div class="line">		System.out.println(e.addstaticid());//3</div><div class="line">				//所有对象共享一个静态类，它属于类</div><div class="line">		System.out.println(e1.getstaticid());//3</div><div class="line">		/*final Person s1=new Person();</div><div class="line">		final Person s2=new Person();</div><div class="line">		s1=s2;//编译不通过</div><div class="line">*/	</div><div class="line">		System.out.println(e.getid());//1</div><div class="line">		e.addid();</div><div class="line">		System.out.println(e.getid());//2</div><div class="line">		System.out.print(e1.getid());//1</div><div class="line">		&#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>例子二：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div></pre></td><td class="code"><pre><div class="line">class Employee&#123;</div><div class="line">	private int id=1;</div><div class="line">	private static int staticid=1;</div><div class="line">	private static String name;</div><div class="line">	static&#123;</div><div class="line">		staticid++;</div><div class="line">		//id++;//编译不通过，须为static变量</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	&#123;</div><div class="line">		id--;</div><div class="line">		staticid--;</div><div class="line">	&#125;</div><div class="line">	public String getOlder()&#123;</div><div class="line">		return name;</div><div class="line">	&#125;</div><div class="line">	public int getstatic()&#123;</div><div class="line">		return staticid;</div><div class="line">	&#125;</div><div class="line">	public int getid()&#123;</div><div class="line">		return id;</div><div class="line">	&#125;</div><div class="line">	public static  int  getstaticid()&#123;</div><div class="line">		//staticid++;</div><div class="line">		return staticid;</div><div class="line">	&#125;</div><div class="line">	static&#123;</div><div class="line">		staticid++;</div><div class="line">	&#125;</div><div class="line">	&#123;</div><div class="line">		id+=2;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">public class StaticTest &#123;</div><div class="line">    </div><div class="line">	public static void main(String[] args)&#123;</div><div class="line">		Employee e=new Employee();</div><div class="line">		System.out.println(e.getstatic());//3</div><div class="line">		Employee e1=new Employee();</div><div class="line">		System.out.println(e1.getstatic());//3</div><div class="line">		System.out.println(Employee.getstaticid());//4</div><div class="line">		System.out.println(e1.getstatic());//4</div><div class="line">		</div><div class="line">		System.out.println(e.getid());</div><div class="line">		System.out.println(e.getOlder());</div><div class="line">		/*final Person s1=new Person();</div><div class="line">		final Person s2=new Person();</div><div class="line">		s1=s2;//编译不通过</div><div class="line">*/	</div><div class="line">&#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>final:</strong><br>final实例域被设置之后，不能被修改；<br>final修饰的方法不能被重写(父子继承关系)；<br>final修饰的类，不能被继承；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">final Person s1=new Person();</div><div class="line">		final Person s2=new Person();</div><div class="line">		s1=s2;//编译不通过</div></pre></td></tr></table></figure>
+<p>finalize方法：<br>垃圾回收器在确认对象不再被引用时调用，不确保能被执行；<br>可以用来释放非Java资源；</p>
+<p>import:<br>导入包，如果两个包都需要使用，则需明确写明；<br>如：java.sql.date和java.util.date类；</p>
+<p>cmd中javac与java的差别：<br>javac com/wiky/test/a.java<br>Java com.wiky.test/a<br>编译器不会监测目录结构，运行时才会出错(包名出错时)；</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/java/javaBasic2/" rel="next" title="java基础知识2">
+                <i class="fa fa-chevron-left"></i> java基础知识2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/java/javaBasic3/" rel="prev" title="java基础知识3">
+                java基础知识3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/./image/logo.png"
+               alt="Wiky" />
+          <p class="site-author-name" itemprop="name">Wiky</p>
+           
+              <p class="site-description motion-element" itemprop="description">屏上得来不觉浅，甚要绝知此事要躬行</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">Artikel</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">Tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/wikyMr" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/5344898934/fans?topnav=1&wvr=6&mod=message&need_filter=1" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/haiweiyi/" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder ">Wiky</span>
+</div>
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+
+
+<div class="powered-by">
+  Erstellt mit  <a class="theme-link" href="https://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+
+  
+
+</body>
+</html>
