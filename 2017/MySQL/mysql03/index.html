@@ -89,7 +89,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="MySQL," />
 
 
 
@@ -105,15 +105,16 @@
 
 
 
-<meta name="description" content="屏上得来不觉浅，甚要绝知此事要躬行">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Wiky's Blog">
-<meta property="og:url" content="https://wikymr.github.io/archives/2017/05/page/2/index.html">
+<meta name="description" content="数据库数据插入：1.插入完整的行INSERT INTO product VALUES(‘5’,’2’,’r2’,500);—&amp;gt;不建议的写法缺陷：高度依赖与表中的依赖次序，列的次序变动之后易出错；改进：INSERT INTO product(id,pct_name,vend_id,pct_price) VALUES(‘6’,’2’,’r2’,500);可忽略的列：给出默认值或者允许为NULL;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库入门之插入删除更新">
+<meta property="og:url" content="https://wikymr.github.io/2017/MySQL/mysql03/index.html">
 <meta property="og:site_name" content="Wiky's Blog">
-<meta property="og:description" content="屏上得来不觉浅，甚要绝知此事要躬行">
+<meta property="og:description" content="数据库数据插入：1.插入完整的行INSERT INTO product VALUES(‘5’,’2’,’r2’,500);—&amp;gt;不建议的写法缺陷：高度依赖与表中的依赖次序，列的次序变动之后易出错；改进：INSERT INTO product(id,pct_name,vend_id,pct_price) VALUES(‘6’,’2’,’r2’,500);可忽略的列：给出默认值或者允许为NULL;">
+<meta property="og:updated_time" content="2017-09-18T16:00:57.202Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Wiky's Blog">
-<meta name="twitter:description" content="屏上得来不觉浅，甚要绝知此事要躬行">
+<meta name="twitter:title" content="数据库入门之插入删除更新">
+<meta name="twitter:description" content="数据库数据插入：1.插入完整的行INSERT INTO product VALUES(‘5’,’2’,’r2’,500);—&amp;gt;不建议的写法缺陷：高度依赖与表中的依赖次序，列的次序变动之后易出错；改进：INSERT INTO product(id,pct_name,vend_id,pct_price) VALUES(‘6’,’2’,’r2’,500);可忽略的列：给出默认值或者允许为NULL;">
 
 
 
@@ -141,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://wikymr.github.io/archives/2017/05/page/2/"/>
+  <link rel="canonical" href="https://wikymr.github.io/2017/MySQL/mysql03/"/>
 
 
 
 
 
-  <title> 归档 | Wiky's Blog </title>
+  <title> 数据库入门之插入删除更新 | Wiky's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -182,7 +183,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  page-archive  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -286,77 +287,197 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-    <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="https://wikymr.github.io/2017/MySQL/mysql03/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Wiky">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/./image/logo.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Wiky's Blog">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Wiky's Blog" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                数据库入门之插入删除更新
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-20T21:54:47+08:00">
+                2017-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+         
+             <span id="busuanzi_container_page_pv">
+                &nbsp; | &nbsp; 热度&nbsp; <span id="busuanzi_value_page_pv"></span>°C
+           </span>
+          
+
+        
+
+          
+            
+          
+
+          
+
+          
+          
+
+       <span class="post-time">
+     &nbsp; | &nbsp;
+           <span class="post-meta-item-icon">
+             <i class="fa fa-edit"></i>
+           </span>
+           <span class="post-meta-item-text">WordCount:</span>
+           <span class="post-count">字</span>
+           
+         </span>
+
+          
+
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <p><strong>数据库数据插入：</strong><br><strong><em>1.插入完整的行</em></strong><br>INSERT INTO product VALUES(‘5’,’2’,’r2’,500);—&gt;不建议的写法<br>缺陷：高度依赖与表中的依赖次序，列的次序变动之后易出错；<br>改进：<br>INSERT INTO product(id,pct_name,vend_id,pct_price) VALUES(‘6’,’2’,’r2’,500);<br>可忽略的列：给出默认值或者允许为NULL;<br>提高整体性能：<br>INSERT操作可能会比较耗时，优先SELECT语句的做法：<br>INSERT LOW_PRIORITY INTO product(id,pct_name,vend_id,pct_price) VALUES(‘6’,’2’,’r2’,500);</p>
+<p><strong><em>2.插入多个行</em></strong><br>INSERT LOW_PRIORITY INTO product(id,pct_name,vend_id,pct_price)<br>VALUES(‘6’,’2’,’r2’,500),(‘7’,’2’,’r2’,600);<br>注：单条INSERT语句处理多个插入，性能会比多个INSERT语句要快！</p>
+<a id="more"></a>
+<p><strong><em>3.插入检索的数据</em></strong><br>INSERT LOW_PRIORITY INTO product(id,pct_name,vend_id,pct_price)<br>SELECT id,<code>name</code>,vend_id,price FROM productnew;<br>可以迅速插入多行；不一定要求列明匹配。</p>
+<p><strong>数据库数据的更新</strong><br>不要忽略WHERE字句，否则会更新表的所有行；<br>UPDATE product<br>SET pct_name=’桌子’<br> WHERE id=’1’<br>或者：<br>UPDATE product<br>SET pct_name=’桌子’,<br>    pct_price=600<br> WHERE id=’1’</p>
+<p><strong>数据库数据的删除</strong><br>不要忽略WHERE字句，否则会删除表中的所有行；<br>DELETE FROM product WHERE id=’1’;<br>删除所有的行更快的方法：TRUNCATE TABLE语句；</p>
+<p><strong><em>删除更新的建议</em></strong><br>1.数据特别重要的，要先对其进行SELECT保证过滤的是正确的结果；<br>2.除非对全部数据操作，否则要使用WHERE语句。</p>
+<p><strong>数据库的创建和操纵(对表的行列进行操作最好进行备份)</strong><br>CREATE TABLE c(<br>    id int NOT NULL AUTO_INCREMENT,<br>    name char(100) NOT NULL,<br>    PRIMARY KEY(id)<br>) ENGINE=InnoDB</p>
+<p>AUTO_INCREMENT:<br>1.插入时可以覆盖默认值；<br>2.确认AUTO_INCREMENT值： SELECT LAST_INSERT_ID() FROM c;</p>
+<p><strong><em>引擎类型</em></strong><br>ENGINE = InnoDB,MEMORY,MyISAM;<br>InnoDB:支持事物处理，不支持全文搜索;<br>MyISAM：性能极高，不支持事物处理，支持全文搜索;</p>
+<p><strong><em>更新表</em></strong><br>增加一行：<br>ALTER TABLE c<br>ADD c_phone CHAR(20);</p>
+<p>删除一行：<br>ALTER TABLE c<br>DROP COLUMN c_phone;</p>
+<p><strong><em>添加主键</em></strong><br>ALTER TABLE product<br>ADD CONSTRAINT fk_vendor_id<br>FOREIGN KEY (vend_id) REFERENCES vendor(id);</p>
+<p>注：fk_vendor_id为约束名称；<br>小心ALTER TABLE:最好对数据库进行备份，删除了一列，会把那一列的数据全部丢失。</p>
+<p><strong><em>删除表</em></strong><br>DROP TABLE c;</p>
+
+      
+    </div>
+
+    <div>
       
         
+
       
-      嗯..! 目前共计 20 篇日志。 继续努力。
-    </span>
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
 
     
 
+    <footer class="post-footer">
       
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2017">2017</h2>
+        <div class="post-tags">
+          
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          
         </div>
       
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/java/javaBasic2/" itemprop="url">
-              
-                <span itemprop="name">java基础知识2</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-05-14T16:05:19+08:00"
-              content="2017-05-14" >
-          05-14
-        </time>
-      </div>
-
-    </header>
+      
+    </footer>
   </article>
 
 
 
-    
-
-  </section>
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/archives/2017/05/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/archives/2017/05/">1</a><span class="page-number current">2</span>
-  </nav>
-
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
           
           </div>
           
 
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -575,11 +696,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
 
 
   
