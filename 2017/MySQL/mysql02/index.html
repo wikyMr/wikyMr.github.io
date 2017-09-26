@@ -108,14 +108,14 @@
 <meta name="description" content="数据表相关：主键：唯一的标识某一行，可以由多列来组成，不能为空；1.SHOW DATABSES;———-输出可用数据库的列表；2.USE TEST(数据库的名字);——使用某个数据库；3.SHOW TABLES;  —-显示数据库所有的表格；
 SELECT相关：4.SELECT prod_name FROM products;—-从表中检索某一列；5.去掉结果中的某一些行：SELECT DISTI">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库MySQL入门之表的建立及查询">
+<meta property="og:title" content="数据库MySQL入门之表的建立及查询及全文搜索">
 <meta property="og:url" content="https://wikymr.github.io/2017/MySQL/mysql02/index.html">
 <meta property="og:site_name" content="Wiky's Blog">
 <meta property="og:description" content="数据表相关：主键：唯一的标识某一行，可以由多列来组成，不能为空；1.SHOW DATABSES;———-输出可用数据库的列表；2.USE TEST(数据库的名字);——使用某个数据库；3.SHOW TABLES;  —-显示数据库所有的表格；
 SELECT相关：4.SELECT prod_name FROM products;—-从表中检索某一列；5.去掉结果中的某一些行：SELECT DISTI">
-<meta property="og:updated_time" content="2017-09-17T15:04:10.991Z">
+<meta property="og:updated_time" content="2017-09-26T14:50:35.013Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库MySQL入门之表的建立及查询">
+<meta name="twitter:title" content="数据库MySQL入门之表的建立及查询及全文搜索">
 <meta name="twitter:description" content="数据表相关：主键：唯一的标识某一行，可以由多列来组成，不能为空；1.SHOW DATABSES;———-输出可用数据库的列表；2.USE TEST(数据库的名字);——使用某个数据库；3.SHOW TABLES;  —-显示数据库所有的表格；
 SELECT相关：4.SELECT prod_name FROM products;—-从表中检索某一列；5.去掉结果中的某一些行：SELECT DISTI">
 
@@ -151,7 +151,7 @@ SELECT相关：4.SELECT prod_name FROM products;—-从表中检索某一列；5
 
 
 
-  <title> 数据库MySQL入门之表的建立及查询 | Wiky's Blog </title>
+  <title> 数据库MySQL入门之表的建立及查询及全文搜索 | Wiky's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -324,7 +324,7 @@ SELECT相关：4.SELECT prod_name FROM products;—-从表中检索某一列；5
             
             
               
-                数据库MySQL入门之表的建立及查询
+                数据库MySQL入门之表的建立及查询及全文搜索
               
             
           </h1>
@@ -395,14 +395,16 @@ SELECT相关：4.SELECT prod_name FROM products;—-从表中检索某一列；5
 
       
         <p><strong>数据表相关：</strong><br>主键：唯一的标识某一行，可以由多列来组成，不能为空；<br>1.SHOW DATABSES;———-输出可用数据库的列表；<br>2.USE TEST(数据库的名字);——使用某个数据库；<br>3.SHOW TABLES;  —-显示数据库所有的表格；</p>
-<p><strong>SELECT相关：</strong><br>4.SELECT prod_name FROM products;—-从表中检索某一列；<br>5.去掉结果中的某一些行：<br>SELECT DISTINCT ven_id  FROM products;<br>注：一些书写的规范：<br><strong>SQL关键字使用大写，对所有的列名和表名使用小写；</strong><br>6.限制结果：<br>SELECT prod_name FROM products LIMIT 5； 返回不多于5行的结果；<br>SELECT prod_name FROM products LIMIT 5，5； 返回第6行开始不多于5行的结果；<br>7.完全限定的表名：<br>SELECT pro_name FROM products;<br>也可以这么写(完全限定的表名)：<br>SELECT pro_name FROM crashcource.products;<br><strong><em>8.排序：ORDER BY 语句：</em></strong><br>SELECT pro_name FROM products ORDER BY pro_name;<br>按多列排序：<br>SELECT pro_name FROM products ORDER BY pro_name，pro_price;<br>按照声明的顺序先后进行排序；<br>逆序排序：<br>SELECT pro_name FROM products ORDER BY pro_name DESC,pro_price DESC;<br>9.ORDER BY加LIMIT组合可以找出一个最大或者最小值：<br>SELECT prod_price FROM products ORDER BY prod_price DESC LIMIT 1;<br><strong><em>范围检查：BETWEEN AND，大于小于</em></strong><br>SELECT pro_name,pro_price<br>FROM products<br>WHERE pro_price<br>BETWEEN 100 AND 160;<br>NULL值检查：//测试不通过<br><strong><em>10.AND OR 连接筛选语句</em></strong><br>SELECT pro_name,pro_price<br>FROM products<br>WHERE pro_id=1 OR pro_id=2 AND pro_price&gt;50;<br>返回的结果不是预期的结果，<br>pro_name pro_price<br>Aa 50<br>Bb 100<br>因为AND的优先级大于OR，要使用花括号分组操作符；<br>SELECT pro_name,pro_price<br>FROM products<br>WHERE (pro_id=1 OR pro_id=2) AND pro_price&gt;50;<br><strong><em>11.IN 操作符</em></strong><br>用于指定条件范围：(上面的语句也可以写成这样的形式)<br>SELECT pro_name,pro_price<br>FROM products<br>WHERE pro_id IN (1,2) AND pro_price&gt;50;<br>注：IN操作符比OR操作符清单执行更快；<br><strong><em>NOT操作符：</em></strong><br>用于否定它之后所跟的任何条件；</p>
+<p><strong>SELECT相关：</strong><br>4.SELECT prod_name FROM products;—-从表中检索某一列；<br>5.去掉结果中的某一些行：<br>SELECT DISTINCT ven_id  FROM products;<br>注：一些书写的规范：<br><strong>SQL关键字使用大写，对所有的列名和表名使用小写；</strong></p>
+<a id="more"></a>
+<p>6.限制结果：<br>SELECT prod_name FROM products LIMIT 5； 返回不多于5行的结果；<br>SELECT prod_name FROM products LIMIT 5，5； 返回第6行开始不多于5行的结果；<br>7.完全限定的表名：<br>SELECT pro_name FROM products;<br>也可以这么写(完全限定的表名)：<br>SELECT pro_name FROM crashcource.products;<br><strong><em>8.排序：ORDER BY 语句：</em></strong><br>SELECT pro_name FROM products ORDER BY pro_name;<br>按多列排序：<br>SELECT pro_name FROM products ORDER BY pro_name，pro_price;<br>按照声明的顺序先后进行排序；<br>逆序排序：<br>SELECT pro_name FROM products ORDER BY pro_name DESC,pro_price DESC;<br>9.ORDER BY加LIMIT组合可以找出一个最大或者最小值：<br>SELECT prod_price FROM products ORDER BY prod_price DESC LIMIT 1;<br><strong><em>范围检查：BETWEEN AND，大于小于</em></strong><br>SELECT pro_name,pro_price<br>FROM products<br>WHERE pro_price<br>BETWEEN 100 AND 160;<br>NULL值检查：//测试不通过<br><strong><em>10.AND OR 连接筛选语句</em></strong><br>SELECT pro_name,pro_price<br>FROM products<br>WHERE pro_id=1 OR pro_id=2 AND pro_price&gt;50;<br>返回的结果不是预期的结果，<br>pro_name pro_price<br>Aa 50<br>Bb 100<br>因为AND的优先级大于OR，要使用花括号分组操作符；<br>SELECT pro_name,pro_price<br>FROM products<br>WHERE (pro_id=1 OR pro_id=2) AND pro_price&gt;50;<br><strong><em>11.IN 操作符</em></strong><br>用于指定条件范围：(上面的语句也可以写成这样的形式)<br>SELECT pro_name,pro_price<br>FROM products<br>WHERE pro_id IN (1,2) AND pro_price&gt;50;<br>注：IN操作符比OR操作符清单执行更快；<br><strong><em>NOT操作符：</em></strong><br>用于否定它之后所跟的任何条件；</p>
 <p><strong><em>数据分组</em></strong><br>GROUP BY语句：<br>字句中不能是别名，只能是检索列或者表达式。<br>必须出现在WHERE语句之后，ORDER BY语句之前。</p>
 <p>疑问：<br>SELECT pid,COUNT(*) FROM test<br>GROUP BY pid WITH ROLLUP<br>WITH ROLLUP是什么意思？</p>
 <p>注：WITH ROLLUP加多一个汇总信息。<br>| pid         | COUNT(<em>) |<br>| ——–    | —–:   |<br>| 13          | 3        |<br>| 14          | 2        |<br>| null        | 5        |<br>其实是在最后一行加多一个汇总信息，与GROUP BY的参数有关。<br>**</em>过滤分组<em>*</em><br>WHERE过滤行，HAVING过滤分组；事实上，目前为止，所学的所有类型的WHERE字句都可以用HAVING来替代。</p>
 <p>不懂的地方：<br>test:<br>| id         | gid  |<br>| ——–   | —–: |<br>| 001        | 13     |<br>| 002        | 13     |<br>| 003        | 14     |<br>| 004        | 14     |<br>| 005        | 13     |<br>SELECT pid,COUNT(<em>) FROM test<br>HAVING COUNT(pid)&gt;0<br>结果：<br>| pid         | COUNT(</em>) |<br>| ——–    | —–:   |<br>| 13          | 5        |</p>
 <p><strong><em>联结表</em></strong>：<br>CROSS JOIN：两个表的笛卡尔积;<br>INNER JOIN不加ON判断返回的也是笛卡尔积，加ON相当于内联查询。<br>LEFT JOIN ….ON….<br>左边的返回所有的列（即使右边的表在ON下无匹配值）<br>例如：<br>要列出每个产品的价格，生产厂家信息（对应的vendor_id可能为空），可以这样写：<br>SELECT pct_name,pct_price,ven_name<br>from product pct LEFT JOIN vendor ven ON ven.id=pct.vend_id;<br>那么即使无对应的生产厂家信息也能得到对应的结果（显示为null）。<br>我的理解是右边的表可以与左边的表根据ON条件多次匹配，如无匹配结果则返回null（右边的表所有列都会保留！！）；</p>
 <p><strong><em>组合查询</em></strong><br>1.UNION必须是两条或两条以上的SELECT语句组成。<br>2.每个查询要包含相同的列，累的数据类型必须兼容。<br>3.UNION会自动从结果集里面去除重复的行。不去重的话用UNION ALL组合结果。<br>4.只能出现依稀ORDER BY语句，出现在最后一条SELECT语句之后（会排序所有的结果）;</p>
-<p><strong><em>全文本搜索</em></strong><br>MySQL数据库引擎分类：常用的有MyISAM和InNoDB，前者支持全文本搜索。<br>创建数据库是支持指定引擎：<br>CREAT TABLE a{<br>  …<br>} ENGINE=MyISAM;<br>使用全文搜索：<br>1.使用FULLTEXT(columName)会对对应的列进行索引；<br>2.使用Match()和Against()执行全文本搜索；<br>3.Match(xx)指定xx列，Against(‘yy’)指定搜索的表达式。<br>4.返回值按等级排序，等级划分：在文本的位置靠前则等级高；（这是比LIKE有优势的地方，而且索引的存在也使得搜索更加的快）；<br>代替方法：使用LIKE:<br>eg: LIKE ‘%yy%’;</p>
+<p><strong><em>全文本搜索</em></strong><br>MySQL数据库引擎分类：常用的有MyISAM和InNoDB，前者支持全文本搜索。<br>创建数据库是支持指定引擎：<br>CREAT TABLE a{<br>  …<br>} ENGINE=MyISAM;<br><strong><em>使用全文搜索：</em></strong><br>1.使用FULLTEXT(columName)会对对应的列进行索引；<br>2.使用Match()和Against()执行全文本搜索；<br>3.Match(xx)指定xx列，Against(‘yy’)指定搜索的表达式。<br>4.返回值按等级排序，等级划分：在文本的位置靠前则等级高；（这是比LIKE有优势的地方，而且索引的存在也使得搜索更加的快）；<br>代替方法：使用LIKE:<br>eg: LIKE ‘%yy%’;</p>
 <p><strong><em>布尔文本搜索</em></strong><br>可以指定以什么开头排除以什么包含什么的搜索；</p>
 
       
@@ -515,7 +517,7 @@ SELECT相关：4.SELECT prod_name FROM products;—-从表中检索某一列；5
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

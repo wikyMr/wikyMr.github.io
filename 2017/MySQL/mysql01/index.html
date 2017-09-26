@@ -89,7 +89,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="git," />
+  <meta name="keywords" content="MySQL," />
 
 
 
@@ -105,16 +105,16 @@
 
 
 
-<meta name="description" content="cd  dir    ——–跳转目录git init   ——-初始化本地仓库目录；git add filename  ——添加文件注：如果修改的内容没有add到暂存区，则就不会加入commit里面git commit -m “operation declaration”  —–提交文件，可从commit恢复,git status ——–查看那些文件被修改（工作区master）git diff">
+<meta name="description" content="说起来真是惭愧了，学了一个学期的数据库，对数据库的题目大大小小也写过一些了；然而在昨天的面试里面， 却在面对一道自己似曾相识的题目的时候，跟那个面试官出现了比较大的分歧；题目的需求大概是这样的：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git常用指令总结(By wiky)">
-<meta property="og:url" content="https://wikymr.github.io/2017/git/index.html">
+<meta property="og:title" content="数据库MySQL总结">
+<meta property="og:url" content="https://wikymr.github.io/2017/MySQL/mysql01/index.html">
 <meta property="og:site_name" content="Wiky's Blog">
-<meta property="og:description" content="cd  dir    ——–跳转目录git init   ——-初始化本地仓库目录；git add filename  ——添加文件注：如果修改的内容没有add到暂存区，则就不会加入commit里面git commit -m “operation declaration”  —–提交文件，可从commit恢复,git status ——–查看那些文件被修改（工作区master）git diff">
-<meta property="og:updated_time" content="2017-05-30T16:03:11.569Z">
+<meta property="og:description" content="说起来真是惭愧了，学了一个学期的数据库，对数据库的题目大大小小也写过一些了；然而在昨天的面试里面， 却在面对一道自己似曾相识的题目的时候，跟那个面试官出现了比较大的分歧；题目的需求大概是这样的：">
+<meta property="og:updated_time" content="2017-09-26T14:54:32.702Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git常用指令总结(By wiky)">
-<meta name="twitter:description" content="cd  dir    ——–跳转目录git init   ——-初始化本地仓库目录；git add filename  ——添加文件注：如果修改的内容没有add到暂存区，则就不会加入commit里面git commit -m “operation declaration”  —–提交文件，可从commit恢复,git status ——–查看那些文件被修改（工作区master）git diff">
+<meta name="twitter:title" content="数据库MySQL总结">
+<meta name="twitter:description" content="说起来真是惭愧了，学了一个学期的数据库，对数据库的题目大大小小也写过一些了；然而在昨天的面试里面， 却在面对一道自己似曾相识的题目的时候，跟那个面试官出现了比较大的分歧；题目的需求大概是这样的：">
 
 
 
@@ -142,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://wikymr.github.io/2017/git/"/>
+  <link rel="canonical" href="https://wikymr.github.io/2017/MySQL/mysql01/"/>
 
 
 
 
 
-  <title> git常用指令总结(By wiky) | Wiky's Blog </title>
+  <title> 数据库MySQL总结 | Wiky's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -297,7 +297,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://wikymr.github.io/2017/git/">
+  <link itemprop="mainEntityOfPage" href="https://wikymr.github.io/2017/MySQL/mysql01/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Wiky">
@@ -321,7 +321,7 @@
             
             
               
-                git常用指令总结(By wiky)
+                数据库MySQL总结
               
             
           </h1>
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-31T00:00:13+08:00">
-                2017-05-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T22:51:05+08:00">
+                2017-09-26
               </time>
             
 
@@ -391,26 +391,9 @@
       
 
       
-        <p>cd  dir    ——–跳转目录<br>git init   ——-初始化本地仓库目录；<br>git add filename  ——添加文件<br>注：如果修改的内容没有add到暂存区，则就不会加入commit里面<br>git commit -m “operation declaration”  —–提交文件，可从commit恢复,<br>git status ——–查看那些文件被修改（工作区master）<br>git diff    ——文件做了哪些修改<br>git log     ——显示最近到最远的提交日志<br>git log -pretty=oneline ——显示修改版本号和操作说明<br>git reset –hard HEAD^  ——回退一个版本,commit或者reset才回产生版本号<br>git reset –hard 版本号前几位   —–回到某个版本（实际上是在移动HEAD指针）<br>git reflog  —–查看命令历史<br>cat filename —–显示文本信息<br><a id="more"></a></p>
-<p>场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，用命令git checkout – file。</p>
-<p>场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，想丢弃修改，分两步，第一步用命令git reset HEAD file，就回到了场景1，第二步按场景1操作。</p>
-<p>场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，参考版本回退一节，不过前提是没有推送到远程库。</p>
-<p>git checkout – file  —–丢弃工作区的修改<br>git reset HEAD file   —丢弃暂存区的修改</p>
-<p>git remote add origin git@github.com:michaelliao/learngit.git（改成自己的git地址）—-本地仓库推送到gitHub<br>git push    ——本地库推送到远程<br>git push origin master  —–本地的最新修改同步到gitHub；</p>
-<p>注：自己的github地址：git@github.com:wikyMr/learngit.git</p>
-<p>git clone git的ssh地址 —— 远程仓库拷贝到本地仓库；<br>git checkout -b dev    ——创建新的分支为dev；相当于下面两个命令<br>git branch dev<br>git  checkout dev</p>
-<p>git branch ——-查看所有分支，当前分支用*标记<br>git checkout master  —–切换到master分支<br>git merge –no-ff -m “merge with no-ff” dev<br>git merge dev    ——将dev分支合并到master分支；（考虑上面的方式）</p>
-<p>查看分支：git branch</p>
-<p>创建分支：git branch <name></name></p>
-<p>切换分支：git checkout <name></name></p>
-<p>创建+切换分支：git checkout -b <name></name></p>
-<p>合并某分支到当前分支：<br>优先考虑：<br>git merge –no-ff -m “merge with no-ff” dev<br>次要：<br>git merge <name></name></p>
-<p>删除分支：git branch -d <name>默认删除会丢失分支信息；</name></p>
-<p>解决冲突：</p>
-<p>先git checkout master 到主分支，然后修改内容，add–commit完成；<br>git log –graph –pretty=oneline –abbrev-commit   ——分支合并情况；</p>
-<p>–no-ff方式git merge:<br>git merge –no-ff -m “merge with no-ff” dev</p>
-<p>git branch -D <name>强行删除未合并的分支<br>git stash  保存现场<br>git stash apply  恢复现场，现场不删除<br>git stash drop   删除现场<br>git stash pop 恢复现场并删除</name></p>
-<p>git remote 查看远程库信息<br>git remote -v  查看远程库详细信息<br>git push origin branch-name   —推送本地分支<br>git checkout -b branch-name origin/branch-name —-本地创建于远程对应的分支<br>git pull   —从远程抓取分支；<br>git branch –set-upstream branch-name origin/branch-name  —-本地建立与远程对应的分支；</p>
+        <p>  说起来真是惭愧了，学了一个学期的数据库，对数据库的题目大大小小也写过一些了；然而在昨天的面试里面，<br> 却在面对一道自己似曾相识的题目的时候，跟那个面试官出现了比较大的分歧；题目的需求大概是这样的：<br><a id="more"></a><br>| No         | Point  |  Day         |<br>| ——–   | —–: | :—-:       |<br>| 001        | -1     |  2010-02-01  |<br>| 002        | 0      |  2010-02-03  |<br>| 003        | -2     |  2010-02-03  |<br>| 004        | -4     |  2010-02-05  |<br>| 005        | 0      |  2010-02-05  |<br>| 006        | -5     |  2010-02-07  |</p>
+<p>给定上面的表格，其中得分为正的算通过，然后需要你去统计每天通过与不通过的人数，以天为行列出；<br>咋一看这道题不会太难吧，我根据以往的经验写出了如下的语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">select day,count(Point) from users where point&gt;=0</div><div class="line">JOIN select day,count(Point) from users where point&lt;0;</div></pre></td></tr></table></figure></p>
+<p>写下这个语句的时候，仿佛就是在念咒语，因为这个东西太那个难理解了，语句虽然简单，然而多种语句组合起来，<br>你就会知道这些东西并不会得到你所期望的结果，关键还有就是这东西没办法调试；<br>好吧吐槽归吐槽，然而我还是要去研究一下这个数据库的玄妙的语句，特别是查询语句吧；</p>
 
       
     </div>
@@ -435,7 +418,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/git/" rel="tag"># git</a>
+            <a href="/tags/MySQL/" rel="tag"># MySQL</a>
           
         </div>
       
@@ -444,8 +427,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/java/reflect/" rel="next" title="java反射学习">
-                <i class="fa fa-chevron-left"></i> java反射学习
+              <a href="/2017/MySQL/mysql04/" rel="next" title="数据库入门之视图游标存储过程触发器">
+                <i class="fa fa-chevron-left"></i> 数据库入门之视图游标存储过程触发器
               </a>
             
           </div>
@@ -453,10 +436,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/MySQL/mysql02/" rel="prev" title="数据库MySQL入门之表的建立及查询及全文搜索">
-                数据库MySQL入门之表的建立及查询及全文搜索 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
