@@ -111,7 +111,7 @@
 <meta property="og:url" content="https://wikymr.github.io/2017/MySQL/mysql01/index.html">
 <meta property="og:site_name" content="Wiky's Blog">
 <meta property="og:description" content="说起来真是惭愧了，学了一个学期的数据库，对数据库的题目大大小小也写过一些了；然而在昨天的面试里面， 却在面对一道自己似曾相识的题目的时候，跟那个面试官出现了比较大的分歧；题目的需求大概是这样的：">
-<meta property="og:updated_time" content="2017-09-26T14:54:32.702Z">
+<meta property="og:updated_time" content="2017-10-18T09:17:50.802Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库MySQL总结">
 <meta name="twitter:description" content="说起来真是惭愧了，学了一个学期的数据库，对数据库的题目大大小小也写过一些了；然而在昨天的面试里面， 却在面对一道自己似曾相识的题目的时候，跟那个面试官出现了比较大的分歧；题目的需求大概是这样的：">
@@ -392,8 +392,7 @@
 
       
         <p>  说起来真是惭愧了，学了一个学期的数据库，对数据库的题目大大小小也写过一些了；然而在昨天的面试里面，<br> 却在面对一道自己似曾相识的题目的时候，跟那个面试官出现了比较大的分歧；题目的需求大概是这样的：<br><a id="more"></a><br>| No         | Point  |  Day         |<br>| ——–   | —–: | :—-:       |<br>| 001        | -1     |  2010-02-01  |<br>| 002        | 0      |  2010-02-03  |<br>| 003        | -2     |  2010-02-03  |<br>| 004        | -4     |  2010-02-05  |<br>| 005        | 0      |  2010-02-05  |<br>| 006        | -5     |  2010-02-07  |</p>
-<p>给定上面的表格，其中得分为正的算通过，然后需要你去统计每天通过与不通过的人数，以天为行列出；<br>咋一看这道题不会太难吧，我根据以往的经验写出了如下的语句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">select day,count(Point) from users where point&gt;=0</div><div class="line">JOIN select day,count(Point) from users where point&lt;0;</div></pre></td></tr></table></figure></p>
-<p>写下这个语句的时候，仿佛就是在念咒语，因为这个东西太那个难理解了，语句虽然简单，然而多种语句组合起来，<br>你就会知道这些东西并不会得到你所期望的结果，关键还有就是这东西没办法调试；<br>好吧吐槽归吐槽，然而我还是要去研究一下这个数据库的玄妙的语句，特别是查询语句吧；</p>
+<p>给定上面的表格，其中得分为正的算通过，然后需要你去统计每天通过与不通过的人数，以天为行列出；<br>了解了count和if函数的使用之后，写出了如下的解决方案：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">SELECT date,COUNT(IF(point&gt;=60,1,NULL)) AS &quot;成功通过人数&quot;,</div><div class="line">COUNT(IF(point&lt;60,1,NULL)) AS &quot;失败人数&quot;</div><div class="line">FROM mytest GROUP BY date;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -436,6 +435,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/LeetCode/array_1016/" rel="prev" title="leetCode之数组专题">
+                leetCode之数组专题 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -501,7 +504,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -514,7 +517,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
