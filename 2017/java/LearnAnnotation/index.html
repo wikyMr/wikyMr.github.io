@@ -89,7 +89,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Vue," />
+  <meta name="keywords" content="java," />
 
 
 
@@ -105,16 +105,21 @@
 
 
 
-<meta name="description" content="1.组件开发模板：12345678910111213141516171819202122232425262728&amp;lt;template&amp;gt; &amp;lt;!--  这里写html代码，用elements组件最好了--&amp;gt;&amp;lt;/template&amp;gt;&amp;lt;script&amp;gt; import a from &amp;quot;./a.vue&amp;quot;export defaut&amp;#123;   d">
+<meta name="description" content="注解JDK提供的三大注解：@Deprecated :废弃的，过时的；@Override: 重写，重载@SuppressWarning: 压缩警告
+注解应用：可以看到，我们可以自定义注解；">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue小结1">
-<meta property="og:url" content="https://wikymr.github.io/2017/前端知识/LearnVue/index.html">
+<meta property="og:title" content="java基础知识之反射">
+<meta property="og:url" content="https://wikymr.github.io/2017/java/LearnAnnotation/index.html">
 <meta property="og:site_name" content="Wiky's Blog">
-<meta property="og:description" content="1.组件开发模板：12345678910111213141516171819202122232425262728&amp;lt;template&amp;gt; &amp;lt;!--  这里写html代码，用elements组件最好了--&amp;gt;&amp;lt;/template&amp;gt;&amp;lt;script&amp;gt; import a from &amp;quot;./a.vue&amp;quot;export defaut&amp;#123;   d">
-<meta property="og:updated_time" content="2017-09-07T10:31:54.775Z">
+<meta property="og:description" content="注解JDK提供的三大注解：@Deprecated :废弃的，过时的；@Override: 重写，重载@SuppressWarning: 压缩警告
+注解应用：可以看到，我们可以自定义注解；">
+<meta property="og:image" content="http://images.cnitblog.com/i/289233/201403/251114219367096.jpg">
+<meta property="og:updated_time" content="2017-05-28T06:39:06.372Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue小结1">
-<meta name="twitter:description" content="1.组件开发模板：12345678910111213141516171819202122232425262728&amp;lt;template&amp;gt; &amp;lt;!--  这里写html代码，用elements组件最好了--&amp;gt;&amp;lt;/template&amp;gt;&amp;lt;script&amp;gt; import a from &amp;quot;./a.vue&amp;quot;export defaut&amp;#123;   d">
+<meta name="twitter:title" content="java基础知识之反射">
+<meta name="twitter:description" content="注解JDK提供的三大注解：@Deprecated :废弃的，过时的；@Override: 重写，重载@SuppressWarning: 压缩警告
+注解应用：可以看到，我们可以自定义注解；">
+<meta name="twitter:image" content="http://images.cnitblog.com/i/289233/201403/251114219367096.jpg">
 
 
 
@@ -142,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="https://wikymr.github.io/2017/前端知识/LearnVue/"/>
+  <link rel="canonical" href="https://wikymr.github.io/2017/java/LearnAnnotation/"/>
 
 
 
 
 
-  <title> Vue小结1 | Wiky's Blog </title>
+  <title> java基础知识之反射 | Wiky's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -297,7 +302,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="https://wikymr.github.io/2017/前端知识/LearnVue/">
+  <link itemprop="mainEntityOfPage" href="https://wikymr.github.io/2017/java/LearnAnnotation/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Wiky">
@@ -321,7 +326,7 @@
             
             
               
-                Vue小结1
+                java基础知识之反射
               
             
           </h1>
@@ -336,8 +341,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-22T16:39:38+08:00">
-                2017-08-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-20T13:23:11+08:00">
+                2017-10-20
               </time>
             
 
@@ -391,16 +396,10 @@
       
 
       
-        <p><strong><em>1.组件开发模板：</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt; </div><div class="line">&lt;!--</div><div class="line">  这里写html代码，用elements组件最好了</div><div class="line">--&gt;</div><div class="line">&lt;/template&gt;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">&lt;script&gt;</div><div class="line"> import a from &quot;./a.vue&quot;</div><div class="line">export defaut&#123; </div><div class="line">  data()&#123; //data必须为函数，每次引用该组件返回的是值的拷贝</div><div class="line">   return &#123;//返回的是一个对象</div><div class="line">    </div><div class="line">   &#125;</div><div class="line">  &#125;,</div><div class="line">  mounted()&#123;//生命周期相关</div><div class="line"></div><div class="line">  &#125;,</div><div class="line">  methods:&#123;//写所需要的函数，返回的是一个对象</div><div class="line"></div><div class="line">  &#125;,</div><div class="line">  components:&#123;//组件引用别名声明</div><div class="line"></div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+        <p><strong>注解</strong><br>JDK提供的三大注解：<br>@Deprecated :废弃的，过时的；<br>@Override: 重写，重载<br>@SuppressWarning: 压缩警告</p>
+<p>注解应用：<br><img src="http://images.cnitblog.com/i/289233/201403/251114219367096.jpg" alt="annotation"><br>可以看到，我们可以自定义注解；</p>
 <a id="more"></a>
-<p><strong><em>2.向组件传值</em></strong><br>当前组件名字：b.vue;</p>
-<p>在script标签里面<br>1.import aa from “./aa.vue”<br>2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> components：&#123;</div><div class="line">    &quot;aa&quot;:aa</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在template标签里面：<br>3.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;aa :dd=&quot;dd&quot;&gt; &lt;/aa&gt;</div></pre></td></tr></table></figure></p>
-<p>在a.vue里面：<br>4.script标签里面：<br>props:[“dd”],<br>这样，dd值可以在a.vue里面直接作为data里面的值来用了。</p>
-<p><strong><em>3.调用子组件的函数</em></strong><br>当前组件名字：b.vue;</p>
-<p>在script标签里面<br>1.<br>import aa from “./aa.vue”<br>2.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> components：&#123;</div><div class="line">    &quot;aa&quot;:aa</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>3.在template标签里面：<br><figure class="highlight plain"><figcaption><span>ref="ccc"> ```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">在script标签methods里面</div><div class="line">4.</div><div class="line">直接写</div></pre></td></tr></table></figure></p>
-<p>this.$refs.ccc.getdata();<br>```<br>5.当然在aa.vue里面需要声明getdata()函数。</p>
+<p>可以通过反射来得知类有哪些注解；</p>
 
       
     </div>
@@ -425,7 +424,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Vue/" rel="tag"># Vue</a>
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -434,8 +433,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/前端知识/learncss/" rel="next" title="Hello CSS！">
-                <i class="fa fa-chevron-left"></i> Hello CSS！
+              <a href="/2017/java/javaWebBasic/" rel="next" title="javaweb基础知识">
+                <i class="fa fa-chevron-left"></i> javaweb基础知识
               </a>
             
           </div>
@@ -443,10 +442,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/Spring相关/Springboot-1/" rel="prev" title="Springboot项目建立">
-                Springboot项目建立 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
